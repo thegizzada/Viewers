@@ -4,6 +4,14 @@ window.config = (() => {
     const urlParams = new URLSearchParams(window.location.search);
     const dicomUrl = urlParams.get('dicomUrl');
 
+    async function fetchOAuthToken() {
+        const response = await fetch('https://app.elecare.ai/methods/getOAuthToken');
+        const data = await response.json();
+        return data.token;
+    }
+
+    const oauthTokenPromise = fetchOAuthToken();
+
     return {
         routerBasename: '/',
         extensions: [],
@@ -30,9 +38,9 @@ window.config = (() => {
                 configuration: {
                     friendlyName: 'ElecareAI DICOM URL',
                     name: 'S3DICOM',
-                    wadoUriRoot: dicomUrl || 'https://dicom.elecare.ai/wado', // Use dynamic URL or fallback to default
-                    qidoRoot: dicomUrl || 'https://dicom.elecare.ai/qido',
-                    wadoRoot: dicomUrl || 'https://dicom.elecare.ai/rs',
+                    wadoUriRoot: dicomUrl,
+                    qidoRoot: dicomUrl,
+                    wadoRoot: dicomUrl,
                     qidoSupportsIncludeField: true,
                     supportsReject: true,
                     imageRendering: 'wadors',
@@ -41,6 +49,9 @@ window.config = (() => {
                     supportsFuzzyMatching: true,
                     supportsWildcard: true,
                     omitQuotationForMultipartRequest: true,
+                    headers: {
+                        'Authorization': `Bearer ${await oauthTokenPromise}`
+                    },
                 },
             },
         ],
