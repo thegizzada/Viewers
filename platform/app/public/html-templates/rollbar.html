@@ -72,6 +72,31 @@
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
 
+    <script>
+      // Assuming you have a function to send annotations to your backend
+      function sendAnnotationToBackend(annotation) {
+        console.log('Sending annotation to backend', annotation);
+        fetch('https://app.elecare.ai/api/zfZzXogYWH2Z5Gdsa', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(annotation),
+        }).then(response => {
+          if (!response.ok) {
+            console.error('Failed to save annotation');
+          }
+        });
+      }
+
+      // Hook into OHIF viewer's annotation save event
+      window.OHIF = window.OHIF || {};
+      window.OHIF.user = window.OHIF.user || {};
+      window.OHIF.user.afterSaveAnnotation = function (annotation) {
+        sendAnnotationToBackend(annotation);
+      };
+    </script>
+
     <div id="root"></div>
 
     <script>
