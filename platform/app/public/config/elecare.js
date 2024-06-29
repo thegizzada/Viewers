@@ -3,7 +3,9 @@
 window.config = (() => {
     const urlParams = new URLSearchParams(window.location.search);
     const dicomUrl = urlParams.get('dicomUrl');
+    if (!dicomUrl) { throw new Error('dicomUrl is required'); }
     const oauthToken = urlParams.get('oauthToken');
+    if (!oauthToken) { throw new Error('oauthToken is required'); }
 
     return {
         routerBasename: '/',
