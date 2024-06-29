@@ -11,7 +11,7 @@ window.config = (() => {
         customizationService: {},
         showStudyList: true,
         maxNumberOfWebWorkers: 3,
-        showWarningMessageForCrossOrigin: true,
+        showWarningMessageForCrossOrigin: false,
         showCPUFallbackMessage: true,
         showLoadingIndicator: true,
         experimentalStudyBrowserSort: false,
@@ -28,7 +28,7 @@ window.config = (() => {
                 namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
                 sourceName: 'dicomweb',
                 configuration: {
-                    friendlyName: 'AWS S3 DICOMWeb Server',
+                    friendlyName: 'ElecareAI DICOM URL',
                     name: 'S3DICOM',
                     wadoUriRoot: dicomUrl || 'https://dicom.elecare.ai/wado', // Use dynamic URL or fallback to default
                     qidoRoot: dicomUrl || 'https://dicom.elecare.ai/qido',
