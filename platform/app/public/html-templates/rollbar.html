@@ -1,203 +1,57 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta
-      name="theme-color"
-      content="#000000"
-    />
-    <meta
-      name="mobile-web-app-capable"
-      content="yes"
-    />
-    <meta
-      name="application-name"
-      content="OHIF Viewer"
-    />
-    <meta
-      name="apple-mobile-web-app-capable"
-      content="yes"
-    />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-    <meta
-      name="apple-mobile-web-app-title"
-      content="@ohif/app"
-    />
-    <meta
-      name="msapplication-TileColor"
-      content="#fff"
-    />
-    <meta
-      name="msapplication-TileImage"
-      content="<%= PUBLIC_URL %>assets/mstile-144x144.png"
-    />
-    <meta
-      name="msapplication-config"
-      content="<%= PUBLIC_URL %>assets/browserconfig.xml"
-    />
-    <link
-      rel="manifest"
-      href="<%= PUBLIC_URL %>manifest.json"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="ElecareAI DICOM" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="@ohif/app" />
+    <meta name="msapplication-TileColor" content="#fff" />
+    <meta name="msapplication-TileImage" content="<%= PUBLIC_URL %>assets/mstile-144x144.png" />
+    <meta name="msapplication-config" content="<%= PUBLIC_URL %>assets/browserconfig.xml" />
+    <link rel="manifest" href="<%= PUBLIC_URL %>manifest.json" />
 
-    <link
-      rel="shortcut icon"
-      href="<%= PUBLIC_URL %>assets/favicon.ico"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="<%= PUBLIC_URL %>assets/favicon-16x16.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="<%= PUBLIC_URL %>assets/favicon-32x32.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="57x57"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-57x57.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="60x60"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-60x60.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="72x72"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-72x72.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="76x76"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-76x76.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="114x114"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-114x114.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="120x120"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-120x120.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="144x144"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-144x144.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="152x152"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-152x152.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="167x167"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-167x167.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-180x180.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="1024x1024"
-      href="<%= PUBLIC_URL %>assets/apple-touch-icon-1024x1024.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-320x460.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-640x920.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-640x1096.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-750x1294.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-1182x2208.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-1242x2148.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-748x1024.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-768x1004.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-1496x2048.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)"
-      href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-1536x2008.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="228x228"
-      href="<%= PUBLIC_URL %>assets/coast-228x228.png"
-    />
-    <link
-      rel="yandex-tableau-widget"
-      href="<%= PUBLIC_URL %>assets/yandex-browser-manifest.json"
-    />
+    <link rel="shortcut icon" href="<%= PUBLIC_URL %>assets/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= PUBLIC_URL %>assets/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= PUBLIC_URL %>assets/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="<%= PUBLIC_URL %>assets/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="<%= PUBLIC_URL %>assets/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="<%= PUBLIC_URL %>assets/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="<%= PUBLIC_URL %>assets/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="<%= PUBLIC_URL %>assets/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= PUBLIC_URL %>assets/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="<%= PUBLIC_URL %>assets/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="<%= PUBLIC_URL %>assets/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="<%= PUBLIC_URL %>assets/apple-touch-icon-167x167.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= PUBLIC_URL %>assets/apple-touch-icon-180x180.png" />
+    <link rel="apple-touch-icon" sizes="1024x1024" href="<%= PUBLIC_URL %>assets/apple-touch-icon-1024x1024.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-320x460.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-640x920.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-640x1096.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-750x1294.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-1182x2208.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-1242x2148.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-748x1024.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-768x1004.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-1496x2048.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="<%= PUBLIC_URL %>assets/apple-touch-startup-image-1536x2008.png" />
+    <link rel="icon" type="image/png" sizes="228x228" href="<%= PUBLIC_URL %>assets/coast-228x228.png" />
+    <link rel="yandex-tableau-widget" href="<%= PUBLIC_URL %>assets/yandex-browser-manifest.json" />
 
     <script type="text/javascript">
       window.PUBLIC_URL = '<%= PUBLIC_URL %>';
     </script>
-    <script
-      type="text/javascript"
-      src="<%= PUBLIC_URL %>app-config.js"
-    ></script>
-    <script
-      type="module"
-      src="<%= PUBLIC_URL %>init-service-worker.js"
-    ></script>
+    <script type="text/javascript" src="<%= PUBLIC_URL %>app-config.js"></script>
+    <script type="module" src="<%= PUBLIC_URL %>init-service-worker.js"></script>
 
-    <title>OHIF Viewer</title>
+    <title>ElecareAI DICOM</title>
 
     <!-- WEB FONTS -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700&display=swap" rel="stylesheet" />
 
     <!-- EXTENSIONS -->
     <!-- <script type="text/javascript" src="path/to/some-extension.js"></script>
@@ -255,8 +109,8 @@
             var n = Object.create(null);
             if (
               (o.r(n),
-              Object.defineProperty(n, 'default', { enumerable: !0, value: r }),
-              2 & e && 'string' != typeof r)
+                Object.defineProperty(n, 'default', { enumerable: !0, value: r }),
+                2 & e && 'string' != typeof r)
             )
               for (var t in r)
                 o.d(
@@ -272,11 +126,11 @@
             var e =
               r && r.__esModule
                 ? function () {
-                    return r.default;
-                  }
+                  return r.default;
+                }
                 : function () {
-                    return r;
-                  };
+                  return r;
+                };
             return o.d(e, 'a', e), e;
           }),
           (o.o = function (r, e) {
@@ -307,7 +161,7 @@
               } catch (r) {
                 try {
                   console.error('[Rollbar]: Internal error', r);
-                } catch (r) {}
+                } catch (r) { }
               }
             };
           }
@@ -319,8 +173,8 @@
               return o;
             }),
               'undefined' != typeof window &&
-                window._rollbarShims &&
-                (window._rollbarShims[o] = { handler: e, messages: [] });
+              window._rollbarShims &&
+              (window._rollbarShims[o] = { handler: e, messages: [] });
           }
           var i = o(3),
             d = function (r, e) {
@@ -357,14 +211,14 @@
                     i.onload = i.onreadystatechange = null;
                     try {
                       c.removeChild(i);
-                    } catch (r) {}
+                    } catch (r) { }
                     (l = !0),
                       (function () {
                         var e;
                         if (void 0 === r._rollbarDidLoad) {
                           e = new Error('rollbar.js did not load');
-                          for (var o, n, t, l, i = 0; (o = r._rollbarShims[i++]); )
-                            for (o = o.messages || []; (n = o.shift()); )
+                          for (var o, n, t, l, i = 0; (o = r._rollbarShims[i++]);)
+                            for (o = o.messages || []; (n = o.shift());)
                               for (t = n.args || [], i = 0; i < t.length; ++i)
                                 if ('function' == typeof (l = t[i])) {
                                   l(e);
@@ -385,9 +239,9 @@
                     'function' == typeof e
                       ? e
                       : function () {
-                          return e || {};
-                        }),
-                  'function' != typeof r)
+                        return e || {};
+                      }),
+                    'function' != typeof r)
                 )
                   return r;
                 if (r._isWrap) return r;
@@ -402,15 +256,15 @@
                       throw (
                         (e &&
                           ('string' == typeof e && (e = new String(e)),
-                          (e._rollbarContext = n() || {}),
-                          (e._rollbarContext._wrappedSource = r.toString()),
-                          (window._rollbarWrappedError = e)),
-                        e)
+                            (e._rollbarContext = n() || {}),
+                            (e._rollbarContext._wrappedSource = r.toString()),
+                            (window._rollbarWrappedError = e)),
+                          e)
                       );
                     }
                   }),
-                  (r._rollbar_wrapped._isWrap = !0),
-                  r.hasOwnProperty)
+                    (r._rollbar_wrapped._isWrap = !0),
+                    r.hasOwnProperty)
                 )
                   for (var t in r) r.hasOwnProperty(t) && (r._rollbar_wrapped[t] = r[t]);
                 return r._rollbar_wrapped;
@@ -420,10 +274,10 @@
             });
           for (
             var p =
-                'log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleUnhandledRejection,captureEvent,captureDomContentLoaded,captureLoad'.split(
-                  ','
-                ),
-              u = 0;
+              'log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleUnhandledRejection,captureEvent,captureDomContentLoaded,captureLoad'.split(
+                ','
+              ),
+            u = 0;
             u < p.length;
             ++u
           )
@@ -438,15 +292,15 @@
                 return t(function () {
                   e.captureUncaught &&
                     ((a._rollbarOldOnError = r.onerror),
-                    n.captureUncaughtExceptions(r, a, !0),
-                    n.wrapGlobals(r, a, !0)),
+                      n.captureUncaughtExceptions(r, a, !0),
+                      n.wrapGlobals(r, a, !0)),
                     e.captureUnhandledRejections && n.captureUnhandledRejections(r, a, !0);
                   var t = e.autoInstrument;
                   return (
                     !1 !== e.enabled &&
-                      (void 0 === t || !0 === t || ('object' == typeof t && t.network)) &&
-                      r.addEventListener &&
-                      (r.addEventListener('load', a.captureLoad.bind(a)),
+                    (void 0 === t || !0 === t || ('object' == typeof t && t.network)) &&
+                    r.addEventListener &&
+                    (r.addEventListener('load', a.captureLoad.bind(a)),
                       r.addEventListener('DOMContentLoaded', a.captureDomContentLoaded.bind(a))),
                     (r[o] = a),
                     a
@@ -460,13 +314,13 @@
         function (r, e) {
           function o(r, e, o) {
             if (e.hasOwnProperty && e.hasOwnProperty('addEventListener')) {
-              for (var n = e.addEventListener; n._rollbarOldAdd && n.belongsToShim; )
+              for (var n = e.addEventListener; n._rollbarOldAdd && n.belongsToShim;)
                 n = n._rollbarOldAdd;
               var t = function (e, o, t) {
                 n.call(this, e, r.wrap(o), t);
               };
               (t._rollbarOldAdd = n), (t.belongsToShim = o), (e.addEventListener = t);
-              for (var a = e.removeEventListener; a._rollbarOldRemove && a.belongsToShim; )
+              for (var a = e.removeEventListener; a._rollbarOldRemove && a.belongsToShim;)
                 a = a._rollbarOldRemove;
               var l = function (r, e, o) {
                 a.call(this, r, (e && e._rollbar_wrapped) || e, o);
@@ -480,7 +334,7 @@
                 var n;
                 if ('function' == typeof e._rollbarOldOnError) n = e._rollbarOldOnError;
                 else if (r.onerror) {
-                  for (n = r.onerror; n._rollbarOldOnError; ) n = n._rollbarOldOnError;
+                  for (n = r.onerror; n._rollbarOldOnError;) n = n._rollbarOldOnError;
                   e._rollbarOldOnError = n;
                 }
                 var t = function () {
@@ -488,8 +342,8 @@
                   !(function (r, e, o, n) {
                     r._rollbarWrappedError &&
                       (n[4] || (n[4] = r._rollbarWrappedError),
-                      n[5] || (n[5] = r._rollbarWrappedError._rollbarContext),
-                      (r._rollbarWrappedError = null)),
+                        n[5] || (n[5] = r._rollbarWrappedError._rollbarContext),
+                        (r._rollbarWrappedError = null)),
                       e.handleUncaughtException.apply(e, n),
                       o && o.apply(r, n);
                   })(r, e, n, o);
@@ -516,7 +370,7 @@
                   }
                   try {
                     (t = r.detail), !o && t && ((o = t.reason), (n = t.promise));
-                  } catch (r) {}
+                  } catch (r) { }
                   o || (o = '[unhandledrejection] error getting `reason` from event'),
                     e && e.handleUnhandledRejection && e.handleUnhandledRejection(o, n);
                 };
@@ -546,16 +400,16 @@
               (function (r) {
                 for (
                   var e = function (r) {
-                      return function () {
-                        var e = Array.prototype.slice.call(arguments, 0);
-                        if (this.impl[r]) return this.impl[r].apply(this.impl, e);
-                      };
-                    },
-                    o =
-                      'log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleUnhandledRejection,_createItem,wrap,loadFull,shimId,captureEvent,captureDomContentLoaded,captureLoad'.split(
-                        ','
-                      ),
-                    n = 0;
+                    return function () {
+                      var e = Array.prototype.slice.call(arguments, 0);
+                      if (this.impl[r]) return this.impl[r].apply(this.impl, e);
+                    };
+                  },
+                  o =
+                    'log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleUnhandledRejection,_createItem,wrap,loadFull,shimId,captureEvent,captureDomContentLoaded,captureLoad'.split(
+                      ','
+                    ),
+                  n = 0;
                   n < o.length;
                   n++
                 )
@@ -564,14 +418,14 @@
           }
           (o.prototype._swapAndProcessMessages = function (r, e) {
             var o, n, t;
-            for (this.impl = r(this.options); (o = e.shift()); )
+            for (this.impl = r(this.options); (o = e.shift());)
               (n = o.method),
                 (t = o.args),
                 this[n] &&
-                  'function' == typeof this[n] &&
-                  ('captureDomContentLoaded' === n || 'captureLoad' === n
-                    ? this[n].apply(this, [t[0], o.ts])
-                    : this[n].apply(this, t));
+                'function' == typeof this[n] &&
+                ('captureDomContentLoaded' === n || 'captureLoad' === n
+                  ? this[n].apply(this, [t[0], o.ts])
+                  : this[n].apply(this, t));
             return this;
           }),
             (r.exports = o);
@@ -582,13 +436,13 @@
               if (!e && !window._rollbarInitialized) {
                 for (
                   var o,
-                    n,
-                    t = (r = r || {}).globalAlias || 'Rollbar',
-                    a = window.rollbar,
-                    l = function (r) {
-                      return new a(r);
-                    },
-                    i = 0;
+                  n,
+                  t = (r = r || {}).globalAlias || 'Rollbar',
+                  a = window.rollbar,
+                  l = function (r) {
+                    return new a(r);
+                  },
+                  i = 0;
                   (o = window._rollbarShims[i++]);
 
                 )
@@ -602,4 +456,5 @@
       // End Rollbar Snippet
     </script>
   </body>
+
 </html>
