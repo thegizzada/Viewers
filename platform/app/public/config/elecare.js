@@ -4,14 +4,6 @@ window.config = (() => {
     const urlParams = new URLSearchParams(window.location.search);
     const dicomUrl = urlParams.get('dicomUrl');
 
-    async function fetchOAuthToken() {
-        const response = await fetch('https://app.elecare.ai/methods/getOAuthToken');
-        const data = await response.json();
-        return data.token;
-    }
-
-    const oauthTokenPromise = fetchOAuthToken();
-
     return {
         routerBasename: '/',
         extensions: [],
@@ -49,9 +41,6 @@ window.config = (() => {
                     supportsFuzzyMatching: true,
                     supportsWildcard: true,
                     omitQuotationForMultipartRequest: true,
-                    headers: {
-                        'Authorization': `Bearer ${await oauthTokenPromise}`
-                    },
                 },
             },
         ],
