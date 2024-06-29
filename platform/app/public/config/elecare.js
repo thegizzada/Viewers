@@ -3,6 +3,7 @@
 window.config = (() => {
     const urlParams = new URLSearchParams(window.location.search);
     const dicomUrl = urlParams.get('dicomUrl');
+    const oauthToken = urlParams.get('oauthToken');
 
     return {
         routerBasename: '/',
@@ -41,6 +42,9 @@ window.config = (() => {
                     supportsFuzzyMatching: true,
                     supportsWildcard: true,
                     omitQuotationForMultipartRequest: true,
+                    headers: {
+                        'Authorization': `Bearer ${oauthToken}`
+                    },
                 },
             },
         ],
