@@ -54,6 +54,9 @@ window.config = (() => {
             },
         ],
         httpErrorHandler: error => {
+            console.log('[[httpErrorHandler]]');
+            console.log('dicomUrl:', dicomUrl);
+            console.log('oauthToken:', oauthToken);
             console.warn(error.status);
             console.warn('test, navigate to https://ohif.org/');
         },
