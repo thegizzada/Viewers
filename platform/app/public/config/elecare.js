@@ -46,6 +46,8 @@ window.config = (() => {
                     supportsFuzzyMatching: true,
                     supportsWildcard: true,
                     omitQuotationForMultipartRequest: true,
+                    token: token,
+                    access_token: token,
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },
