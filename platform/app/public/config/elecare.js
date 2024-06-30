@@ -7,6 +7,9 @@ window.config = (() => {
     const oauthToken = urlParams.get('oauthToken');
     if (!oauthToken) { throw new Error('oauthToken is required'); }
 
+    console.log('dicomUrl:', dicomUrl);
+    console.log('oauthToken:', oauthToken);
+
     return {
         routerBasename: '/',
         extensions: [],
