@@ -10,6 +10,12 @@ window.config = (() => {
     console.log('dicomUrl:', dicomUrl);
     console.log('oauthToken:', oauthToken);
 
+    setTimeout(() => {
+        console.log('test, navigate to https://ohif.org/');
+        console.log('dicomUrl:', dicomUrl);
+        console.log('oauthToken:', oauthToken);
+    }, 5000);
+
     return {
         routerBasename: '/',
         extensions: [],
