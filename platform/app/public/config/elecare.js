@@ -7,6 +7,24 @@ window.config = (() => {
 
     return {
         routerBasename: '/',
+        // This is an array, but we'll only use the first entry for now
+        oidc: [
+            {
+                // ~ REQUIRED
+                // Authorization Server URL
+                authority: 'https://accounts.google.com',
+                client_id: '832012968033-184un2snjqtl8ip9mh9isfm3299nb3l2.apps.googleusercontent.com',
+                redirect_uri: '/callback',
+                response_type: 'id_token token',
+                scope:
+                    'email profile openid https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/cloud-healthcare', // email profile openid
+                // ~ OPTIONAL
+                post_logout_redirect_uri: '/logout-redirect.html',
+                revoke_uri: 'https://accounts.google.com/o/oauth2/revoke?token=',
+                automaticSilentRenew: true,
+                revokeAccessTokenOnSignout: true,
+            },
+        ],
         extensions: [],
         modes: [],
         customizationService: {},
@@ -45,6 +63,24 @@ window.config = (() => {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },
+                },
+            },
+            {
+                friendlyName: 'dcmjs DICOMWeb Server',
+                namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
+                sourceName: 'dicomweb',
+                configuration: {
+                    name: 'GCP',
+                    wadoUriRoot: dicomUrl,
+                    qidoRoot: dicomUrl,
+                    wadoRoot: dicomUrl,
+                    qidoSupportsIncludeField: true,
+                    imageRendering: 'wadors',
+                    thumbnailRendering: 'wadors',
+                    enableStudyLazyLoad: true,
+                    supportsFuzzyMatching: true,
+                    supportsWildcard: false,
+                    dicomUploadEnabled: true,
                 },
             },
         ],
