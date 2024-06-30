@@ -5,6 +5,10 @@ window.config = (() => {
     const dicomUrl = urlParams.get('dicomUrl');
     const token = urlParams.get('token') || urlParams.get('oauthToken');
 
+    console.log('[[window.config]]');
+    console.log('dicomUrl:', dicomUrl);
+    console.log('token:', token);
+
     return {
         routerBasename: '/',
         extensions: [],
@@ -31,9 +35,9 @@ window.config = (() => {
                 configuration: {
                     friendlyName: 'dcmjs DICOMWeb Server',
                     name: 'GCP',
-                    wadoUriRoot: `${dicomUrl}?token=${token}`,
-                    qidoRoot: `${dicomUrl}?token=${token}`,
-                    wadoRoot: `${dicomUrl}?token=${token}`,
+                    wadoUriRoot: dicomUrl,
+                    qidoRoot: dicomUrl,
+                    wadoRoot: dicomUrl,
                     qidoSupportsIncludeField: true,
                     supportsReject: true,
                     imageRendering: 'wadors',
@@ -53,8 +57,6 @@ window.config = (() => {
             console.log('dicomUrl:', dicomUrl);
             console.log('token:', token);
             console.log(error);
-            console.warn(error.status);
-            console.warn('test, navigate to https://ohif.org/');
         },
         hotkeys: [
             {

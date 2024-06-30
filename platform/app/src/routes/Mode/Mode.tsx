@@ -28,9 +28,9 @@ export default function ModeRoute({
   const location = useLocation();
 
   // The react router DOM placeholder map (see https://reactrouter.com/en/main/hooks/use-params).
-  const params = useParams();
+  const params = useParams(); console.log('[[params]]', params);
   // The URL's query search parameters where the keys casing is maintained
-  const query = useSearchParams();
+  const query = useSearchParams(); console.log('[[query]]', query);
 
   mode?.onModeInit?.({
     servicesManager,
@@ -66,7 +66,7 @@ export default function ModeRoute({
   const { extensions, sopClassHandlers, hotkeys: hotkeyObj, hangingProtocol } = mode;
 
   const runTimeHangingProtocolId = lowerCaseSearchParams.get('hangingprotocolid');
-  const token = lowerCaseSearchParams.get('token');
+  const token = lowerCaseSearchParams.get('token'); console.log('[[token]]', token);
 
   if (token) {
     updateAuthServiceAndCleanUrl(token, location, userAuthenticationService);
