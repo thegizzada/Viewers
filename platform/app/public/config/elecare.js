@@ -3,18 +3,7 @@
 window.config = (() => {
     const urlParams = new URLSearchParams(window.location.search);
     const dicomUrl = urlParams.get('dicomUrl');
-    if (!dicomUrl) { throw new Error('dicomUrl is required'); }
-    const oauthToken = urlParams.get('oauthToken');
-    if (!oauthToken) { throw new Error('oauthToken is required'); }
-
-    console.log('dicomUrl:', dicomUrl);
-    console.log('oauthToken:', oauthToken);
-
-    setTimeout(() => {
-        console.log('test, navigate to https://ohif.org/');
-        console.log('dicomUrl:', dicomUrl);
-        console.log('oauthToken:', oauthToken);
-    }, 5000);
+    const token = urlParams.get('token') || urlParams.get('oauthToken');
 
     return {
         routerBasename: '/',
@@ -40,8 +29,8 @@ window.config = (() => {
                 namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
                 sourceName: 'dicomweb',
                 configuration: {
-                    friendlyName: 'ElecareAI DICOM URL',
-                    name: 'S3DICOM',
+                    friendlyName: 'dcmjs DICOMWeb Server',
+                    name: 'GCP',
                     wadoUriRoot: dicomUrl,
                     qidoRoot: dicomUrl,
                     wadoRoot: dicomUrl,
@@ -54,7 +43,7 @@ window.config = (() => {
                     supportsWildcard: true,
                     omitQuotationForMultipartRequest: true,
                     headers: {
-                        'Authorization': `Bearer ${oauthToken}`
+                        'Authorization': `Bearer ${token}`
                     },
                 },
             },
