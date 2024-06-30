@@ -31,9 +31,9 @@ window.config = (() => {
                 configuration: {
                     friendlyName: 'dcmjs DICOMWeb Server',
                     name: 'GCP',
-                    wadoUriRoot: dicomUrl,
-                    qidoRoot: dicomUrl,
-                    wadoRoot: dicomUrl,
+                    wadoUriRoot: `${dicomUrl}?token=${token}`,
+                    qidoRoot: `${dicomUrl}?token=${token}`,
+                    wadoRoot: `${dicomUrl}?token=${token}`,
                     qidoSupportsIncludeField: true,
                     supportsReject: true,
                     imageRendering: 'wadors',
