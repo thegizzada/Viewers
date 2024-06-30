@@ -8,11 +8,6 @@ window.config = (() => {
     console.log('[[window.config]]');
     console.log('dicomUrl:', dicomUrl);
     console.log('token:', token);
-    if (user) {
-        console.log('user:', user);
-        user.getAccessToken = () => token;
-        console.log('user.getAccessToken:', user.getAccessToken());
-    }
 
     return {
         routerBasename: '/',
