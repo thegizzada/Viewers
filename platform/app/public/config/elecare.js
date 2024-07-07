@@ -52,6 +52,9 @@ window.config = (() => {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },
+                    requestOptions: {
+                        auth: token,
+                    },
                 },
             },
         ],
