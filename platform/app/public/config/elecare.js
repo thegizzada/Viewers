@@ -34,7 +34,7 @@ window.config = (() => {
                 // Authorization Server URL
                 authority: 'https://accounts.google.com',
                 client_id: '832012968033-184un2snjqtl8ip9mh9isfm3299nb3l2.apps.googleusercontent.com',
-                redirect_uri: 'https://dicom.elecare.ai/callback',
+                redirect_uri: '/callback',
                 response_type: 'id_token token',
                 scope:
                     'email profile openid https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/cloud-healthcare', // email profile openid
