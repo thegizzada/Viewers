@@ -5,7 +5,7 @@ window.config = (() => {
     const dicomUrl = urlParams.get('dicomUrl');
     const token = urlParams.get('token') || urlParams.get('oauthToken');
 
-    console.log('[[window.config]] - v.0.0.6');
+    console.log('[[window.config]] - v.0.0.7');
     console.log('dicomUrl:', dicomUrl);
     console.log('token:', token);
 
@@ -34,7 +34,7 @@ window.config = (() => {
                 // Authorization Server URL
                 authority: 'https://accounts.google.com',
                 client_id: '832012968033-184un2snjqtl8ip9mh9isfm3299nb3l2.apps.googleusercontent.com',
-                redirect_uri: '/callback',
+                redirect_uri: '/callback?dicomUrl=' + dicomUrl,
                 response_type: 'id_token token',
                 scope:
                     'email profile openid https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/cloud-healthcare', // email profile openid
