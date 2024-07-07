@@ -28,9 +28,11 @@ export default function ModeRoute({
   const location = useLocation();
 
   // The react router DOM placeholder map (see https://reactrouter.com/en/main/hooks/use-params).
-  const params = useParams(); console.log('[[params]]', params);
+  const params = useParams(); 
+  console.log('[[params]]', params);
   // The URL's query search parameters where the keys casing is maintained
-  const query = useSearchParams(); console.log('[[query]]', query);
+  const query = useSearchParams(); 
+  console.log('[[query]]', query);
 
   mode?.onModeInit?.({
     servicesManager,

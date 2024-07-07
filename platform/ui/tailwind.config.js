@@ -25,39 +25,39 @@ module.exports = {
       inherit: 'inherit',
 
       aqua: {
-        pale: '#7bb2ce',
+        pale: '#b0c4de', // Adjusted to a lighter greyish blue
       },
 
       primary: {
-        light: '#5acce6',
-        main: '#0944b3',
-        dark: '#090c29',
-        active: '#348cfd',
+        light: '#d1d1d1', // Adjusted to light grey
+        main: '#4a4a4a',  // Adjusted to medium grey
+        dark: '#2D2E26',  // Updated as specified
+        active: '#6e6e6e', // Adjusted to a darker grey
       },
       inputfield: {
-        main: '#3a3f99',
-        disabled: '#2b166b',
-        focus: '#5acce6',
-        placeholder: '#39383f',
+        main: '#737373',     // Adjusted to medium grey
+        disabled: '#595959', // Adjusted to dark grey
+        focus: '#d1d1d1',    // Adjusted to light grey
+        placeholder: '#39383f', // Kept as is
       },
 
       secondary: {
-        light: '#3a3f99',
-        main: '#2b166b',
-        dark: '#041c4a',
-        active: '#1f1f27',
+        light: '#737373', // Adjusted to light grey
+        main: '#595959',  // Adjusted to medium grey
+        dark: '#2D2E26',  // Updated as specified
+        active: '#494949', // Adjusted to slightly lighter grey
       },
 
       indigo: {
-        dark: '#0b1a42',
+        dark: '#1c1c1c', // Adjusted to greyish black
       },
 
       common: {
-        bright: '#e1e1e1',
-        light: '#a19fad',
-        main: '#fff',
-        dark: '#726f7e',
-        active: '#2c3074',
+        bright: '#e5e5e5', // Adjusted to a very light grey
+        light: '#c0c0c0',  // Adjusted to light grey
+        main: '#f0f0f0',   // Adjusted to a slightly off-white grey
+        dark: '#8c8c8c',   // Adjusted to a medium grey
+        active: '#5a5a5a', // Adjusted to a darker grey
       },
 
       customgreen: {
@@ -66,16 +66,16 @@ module.exports = {
       },
 
       customblue: {
-        10: '#0A163F',
-        20: '#0B1F54',
-        30: '#09286e',
-        40: '#0E307F',
-        50: '#0F3A94',
-        80: '#1454D4',
-        100: '#c4fdff',
-        200: '#38daff',
-        300: '#1D204D',
-        400: '#90A0C1',
+        10: '#1a1a1a',     // Adjusted to a very dark grey
+        20: '#2a2a2a',     // Adjusted to dark grey
+        30: '#3a3a3a',     // Adjusted to dark grey
+        40: '#4a4a4a',     // Adjusted to medium grey
+        50: '#5a5a5a',     // Adjusted to medium grey
+        80: '#6e6e6e',     // Adjusted to grey
+        100: '#d0d0d0',    // Adjusted to light grey
+        200: '#a0a0a0',    // Adjusted to medium light grey
+        300: '#808080',    // Adjusted to medium grey
+        400: '#b0b0b0',    // Adjusted to light grey
       },
 
       customgray: {
@@ -169,7 +169,7 @@ module.exports = {
         700: '#4c51bf',
         800: '#434190',
         900: '#3c366b',
-        dark: '#0b1a42',
+        dark: '#1c1c1c', // Adjusted to greyish black
       },
       purple: {
         100: '#faf5ff',

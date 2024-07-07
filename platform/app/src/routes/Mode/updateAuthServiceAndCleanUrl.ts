@@ -9,7 +9,7 @@ export function updateAuthServiceAndCleanUrl(
   location: any,
   userAuthenticationService: any
 ): void {
-  console.log('[[[updateAuthServiceAndCleanUrl]]]', token, location, userAuthenticationService);
+  console.log('[[updateAuthServiceAndCleanUrl]]', token, location, userAuthenticationService);
   if (!token) {
     return;
   }
