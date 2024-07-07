@@ -5,7 +5,7 @@ window.config = (() => {
     const dicomUrl = urlParams.get('dicomUrl');
     const token = urlParams.get('token') || urlParams.get('oauthToken');
 
-    console.log('[[window.config]] - v.0.0.1');
+    console.log('[[window.config]] - v.0.0.2');
     console.log('dicomUrl:', dicomUrl);
     console.log('token:', token);
 
