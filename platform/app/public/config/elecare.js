@@ -5,7 +5,7 @@ window.config = (() => {
     const dicomUrl = urlParams.get('dicomUrl');
     const token = urlParams.get('token') || urlParams.get('oauthToken');
 
-    console.log('[[window.config]] - v.0.0.4');
+    console.log('[[window.config]] - v.0.0.5');
     console.log('dicomUrl:', dicomUrl);
     console.log('token:', token);
 
@@ -33,7 +33,7 @@ window.config = (() => {
                 // ~ REQUIRED
                 // Authorization Server URL
                 authority: 'https://accounts.google.com',
-                client_id: '723928408739-k9k9r3i44j32rhu69vlnibipmmk9i57p.apps.googleusercontent.com',
+                client_id: '832012968033-184un2snjqtl8ip9mh9isfm3299nb3l2.apps.googleusercontent.com',
                 redirect_uri: '/callback',
                 response_type: 'id_token token',
                 scope:
