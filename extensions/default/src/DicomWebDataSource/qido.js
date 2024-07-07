@@ -103,10 +103,6 @@ export function processSeriesResults(qidoSeries) {
  * @returns {Promise<results>} - Promise that resolves results
  */
 async function search(dicomWebClient, studyInstanceUid, seriesInstanceUid, queryParameters) {
-  console.log('[[search]]');
-  console.log('studyInstanceUid:', studyInstanceUid);
-  console.log('seriesInstanceUid:', seriesInstanceUid);
-  console.log('queryParameters:', queryParameters);
   let searchResult = await dicomWebClient.searchForStudies({
     studyInstanceUid: undefined,
     queryParams: queryParameters,

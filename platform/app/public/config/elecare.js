@@ -5,10 +5,6 @@ window.config = (() => {
     const dicomUrl = urlParams.get('dicomUrl');
     const token = urlParams.get('token') || urlParams.get('oauthToken');
 
-    console.log('[[window.config]] - v.0.0.8');
-    console.log('dicomUrl:', dicomUrl);
-    console.log('token:', token);
-
     return {
         routerBasename: '/',
         extensions: [],
@@ -28,23 +24,6 @@ window.config = (() => {
             prefetch: 25,
         },
         defaultDataSourceName: 'dicomweb',
-        /*oidc: [
-            {
-                // ~ REQUIRED
-                // Authorization Server URL
-                authority: 'https://accounts.google.com',
-                client_id: '832012968033-184un2snjqtl8ip9mh9isfm3299nb3l2.apps.googleusercontent.com',
-                redirect_uri: '/callback',
-                response_type: 'id_token token',
-                scope:
-                    'email profile openid https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/cloud-healthcare', // email profile openid
-                // ~ OPTIONAL
-                post_logout_redirect_uri: '/logout-redirect.html',
-                revoke_uri: 'https://accounts.google.com/o/oauth2/revoke?token=',
-                automaticSilentRenew: true,
-                revokeAccessTokenOnSignout: true,
-            },
-        ],*/
         dataSources: [
             {
                 namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
@@ -76,12 +55,6 @@ window.config = (() => {
                     },
                 },
             },
-        ],
-        httpErrorHandler: error => {
-            console.log('[[httpErrorHandler]]');
-            console.log('dicomUrl:', dicomUrl);
-            console.log('token:', token);
-            console.log(error);
-        },
+        ]
     };
 })();
