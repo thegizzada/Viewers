@@ -3,16 +3,46 @@
 
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="ElecareAI DICOM" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="@ohif/app" />
-    <meta name="msapplication-TileColor" content="#fff" />
-    <meta name="msapplication-TileImage" content="<%= PUBLIC_URL %>assets/mstile-144x144.png" />
-    <meta name="msapplication-config" content="<%= PUBLIC_URL %>assets/browserconfig.xml" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="theme-color"
+      content="#000000"
+    />
+    <meta
+      name="mobile-web-app-capable"
+      content="yes"
+    />
+    <meta
+      name="application-name"
+      content="ElecareAI DICOM"
+    />
+    <meta
+      name="apple-mobile-web-app-capable"
+      content="yes"
+    />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="@ohif/app"
+    />
+    <meta
+      name="msapplication-TileColor"
+      content="#fff"
+    />
+    <meta
+      name="msapplication-TileImage"
+      content="<%= PUBLIC_URL %>assets/mstile-144x144.png"
+    />
+    <meta
+      name="msapplication-config"
+      content="<%= PUBLIC_URL %>assets/browserconfig.xml"
+    />
     <script type="text/javascript">
       console.time('scriptToView');
       window.PUBLIC_URL = '<%= PUBLIC_URL %>';
@@ -50,10 +80,16 @@
     <script rel="preload" as="script" type="module" src="<%= PUBLIC_URL %>init-service-worker.js"></script>
 
     <title>ElecareAI DICOM</title>
-
-    <!-- WEB FONTS -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css?family=Inter:100,300,400,500,700&display=swap" rel="stylesheet" rel="preload" as="style" />
+
+    <script>
+      function browserImportFunction(moduleId) {
+        return import(moduleId);
+      }
+
+      window.PUBLIC_URL = '<%= PUBLIC_URL %>';
+    </script>
 
     <!-- EXTENSIONS -->
     <!-- <script type="text/javascript" src="path/to/some-extension.js"></script>
@@ -100,8 +136,7 @@
     </script>
 
     <div id="react-portal"></div>
-    <div id="root">
-    </div>
+    <div id="root"></div>
   </body>
 
 </html>

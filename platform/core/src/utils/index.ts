@@ -13,6 +13,7 @@ import hotkeys from './hotkeys';
 import Queue from './Queue';
 import isDicomUid from './isDicomUid';
 import formatDate from './formatDate';
+import formatTime from './formatTime';
 import formatPN from './formatPN';
 import generateAcceptHeader from './generateAcceptHeader';
 import resolveObjectPath from './resolveObjectPath';
@@ -25,6 +26,7 @@ import sortInstancesByPosition from './sortInstancesByPosition';
 import imageIdToURI from './imageIdToURI';
 import debounce from './debounce';
 import roundNumber from './roundNumber';
+import toNumber from './toNumber';
 import downloadCSVReport from './downloadCSVReport';
 import isEqualWithin from './isEqualWithin';
 import addAccessors from './addAccessors';
@@ -34,11 +36,13 @@ import {
   sortStudyInstances,
   sortingCriteria,
   seriesSortCriteria,
+  instancesSortCriteria,
 } from './sortStudy';
-import { subscribeToNextViewportGridChange } from './subscribeToNextViewportGridChange';
 import { splitComma, getSplitParam } from './splitComma';
 import { createStudyBrowserTabs } from './createStudyBrowserTabs';
-
+import { sopClassDictionary } from './sopClassDictionary';
+import * as MeasurementFilters from './measurementFilters';
+import getClosestOrientationFromIOP from './getClosestOrientationFromIOP';
 // Commented out unused functionality.
 // Need to implement new mechanism for derived displaySets using the displaySetManager.
 
@@ -54,8 +58,10 @@ const utils = {
   sortStudyInstances,
   sortingCriteria,
   seriesSortCriteria,
+  instancesSortCriteria,
   writeScript,
   formatDate,
+  formatTime,
   formatPN,
   b64toBlob,
   urlUtil,
@@ -67,6 +73,7 @@ const utils = {
   Queue,
   isDicomUid,
   isEqualWithin,
+  sopClassDictionary,
   addAccessors,
   resolveObjectPath,
   hierarchicalListUtils,
@@ -76,12 +83,14 @@ const utils = {
   isDisplaySetReconstructable,
   debounce,
   roundNumber,
+  toNumber,
   downloadCSVReport,
-  subscribeToNextViewportGridChange,
   splitComma,
   getSplitParam,
   generateAcceptHeader,
   createStudyBrowserTabs,
+  MeasurementFilters,
+  getClosestOrientationFromIOP,
 };
 
 export {
@@ -110,11 +119,14 @@ export {
   imageIdToURI,
   debounce,
   roundNumber,
+  toNumber,
   downloadCSVReport,
   splitComma,
   getSplitParam,
   generateAcceptHeader,
   createStudyBrowserTabs,
+  MeasurementFilters,
+  getClosestOrientationFromIOP,
 };
 
 export default utils;

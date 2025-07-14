@@ -2,24 +2,28 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
+  fullyParallel: !!process.env.CI,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 3 : 0,
+  workers: process.env.CI ? 6 : undefined,
   snapshotPathTemplate: './tests/screenshots{/projectName}/{testFilePath}/{arg}{ext}',
   outputDir: './tests/test-results',
   reporter: [
     [
-      process.env.CI ? 'blob' : 'html',
-      { outputFolder: './tests/playwright-report' },
+      process.env.CI ? 'json' : 'html',
+      process.env.CI
+        ? { outputFile: './tests/playwright-report.json' }
+        : { outputFolder: './tests/playwright-report' },
     ],
   ],
-  timeout: 720 * 1000,
+  globalTimeout: 800_000,
+  timeout: 800_000,
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3335',
     trace: 'on-first-retry',
-    video: 'on',
+    video: 'on-first-retry',
     testIdAttribute: 'data-cy',
+    actionTimeout: 10_000,
   },
 
   projects: [
@@ -41,9 +45,9 @@ export default defineConfig({
     //},
   ],
   webServer: {
-    command: 'yarn start',
-    url: 'http://localhost:3000',
+    command: 'cross-env APP_CONFIG=config/e2e.js COVERAGE=true OHIF_PORT=3335 nyc yarn start',
+    url: 'http://localhost:3335',
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    timeout: 360_000,
   },
 });

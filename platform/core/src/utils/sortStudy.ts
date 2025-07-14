@@ -2,7 +2,7 @@ import isLowPriorityModality from './isLowPriorityModality';
 
 const compareSeriesDateTime = (a, b) => {
   const seriesDateA = Date.parse(`${a.seriesDate ?? a.SeriesDate} ${a.seriesTime ?? a.SeriesTime}`);
-  const seriesDateB = Date.parse(`${a.seriesDate ?? a.SeriesDate} ${a.seriesTime ?? a.SeriesTime}`);
+  const seriesDateB = Date.parse(`${b.seriesDate ?? b.SeriesDate} ${b.seriesTime ?? b.SeriesTime}`);
   return seriesDateA - seriesDateB;
 };
 
@@ -26,6 +26,8 @@ function seriesInfoSortingCriteria(firstSeries, secondSeries) {
   const bLowPriority = isLowPriorityModality(secondSeries.Modality ?? secondSeries.modality);
 
   if (aLowPriority) {
+    // Use the reverse sort order for low priority modalities so that the
+    // most recent one comes up first as usually that is the one of interest.
     return bLowPriority ? defaultSeriesSort(secondSeries, firstSeries) : 1;
   } else if (bLowPriority) {
     return -1;
@@ -40,7 +42,19 @@ const seriesSortCriteria = {
 };
 
 const instancesSortCriteria = {
-  default: (a, b) => parseInt(a.InstanceNumber) - parseInt(b.InstanceNumber),
+  default: (a, b) => {
+    // Sort by InstanceNumber (0020,0013)
+    const aInstance = parseInt(a.InstanceNumber) || 0;
+    const bInstance = parseInt(b.InstanceNumber) || 0;
+    if (aInstance !== bInstance) {
+      return (parseInt(a.InstanceNumber) || 0) - (parseInt(b.InstanceNumber) || 0);
+    }
+    // Fallback rule to enable consistent sorting
+    if (a.SOPInstanceUID === b.SOPInstanceUID) {
+      return 0;
+    }
+    return a.SOPInstanceUID < b.SOPInstanceUID ? -1 : 1;
+  },
 };
 
 const sortingCriteria = {
@@ -114,4 +128,11 @@ export default function sortStudy(
   return study;
 }
 
-export { sortStudy, sortStudySeries, sortStudyInstances, sortingCriteria, seriesSortCriteria };
+export {
+  sortStudy,
+  sortStudySeries,
+  sortStudyInstances,
+  sortingCriteria,
+  seriesSortCriteria,
+  instancesSortCriteria,
+};

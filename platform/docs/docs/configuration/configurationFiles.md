@@ -1,6 +1,8 @@
 ---
 sidebar_position: 1
 sidebar_label: Configuration Files
+title: Configuration Files
+summary: Comprehensive guide to configuring OHIF Viewer, including data sources, environment variables, advanced options like study prefetching, and detailed explanations of configuration parameters for performance optimization and feature customization.
 ---
 
 # Config files
@@ -28,7 +30,7 @@ The simplest way is to update the existing default config:
 
 ```js title="platform/app/public/config/default.js"
 window.config = {
-  routerBasename: '/',
+  routerBasename: null,
   extensions: [],
   modes: [],
   showStudyList: true,
@@ -81,7 +83,7 @@ window.config = ({ servicesManager } = {}) => {
         }
       },
     },
-    routerBasename: '/',
+    routerBasename: null,
     dataSources: [
     {
       namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
@@ -125,7 +127,7 @@ Here are a list of some options available:
 - `investigationalUseDialog`: This should contain an object with `option` value, it can be either `always` which always shows the dialog once per session, `never` which never shows the dialog, or `configure` which shows the dialog once and won't show it again until a set number of days defined by the user, if it's set to configure, you are required to add an additional property `days` which is the number of days to wait before showing the dialog again.
 - `groupEnabledModesFirst`: boolean, if set to true, all valid modes for the study get grouped together first, then the rest of the modes. If false, all modes are shown in the order they are defined in the configuration.
 - `experimentalStudyBrowserSort`: boolean, if set to true, you will get the experimental StudyBrowserSort component in the UI, which displays a list of sort functions that the displaySets can be sorted by, the sort reflects in all part of the app including the thumbnail/study panel. These sort functions are defined in the customizationModule and can be expanded by users.
-- `disableConfirmationPrompts`: boolean, if set to true, it skips confirmation prompts for measurement tracking and hydration.
+- `disableConfirmationPrompts`: boolean, if set to true, it skips confirmation prompts for segmentation related prompts.
 - `showPatientInfo`: string, if set to 'visible', the patient info header will be shown and its initial state is expanded. If set to 'visibleCollapsed', the patient info header will be shown but it's initial state is collapsed. If set to 'disabled', the patient info header will never be shown, and if set to 'visibleReadOnly', the patient info header will be shown and always expanded.
 - `requestTransferSyntaxUID` : Request a specific Transfer syntax from dicom web server ex: 1.2.840.10008.1.2.4.80  (applied only if acceptHeader is not set)
 - `omitQuotationForMultipartRequest`: Some servers (e.g., .NET) require the `multipart/related` request to be sent without quotation marks. Defaults to `false`. If your server doesn't require this, then setting this flag to `true` might improve performance (by removing the need for preflight requests). Also note that
@@ -226,7 +228,6 @@ Example usage:<br/>
        supportsFuzzyMatching: false,
        supportsWildcard: false,
        singlepart: 'bulkdata,video,pdf',
-       useBulkDataURI: false,
        onConfiguration: (dicomWebConfig, options) => {
          const { params } = options;
          const { project, location, dataset, dicomStore } = params;
@@ -269,7 +270,7 @@ based on the proximity to the current series/display set. This can be useful to 
     /* Enable/disable study prefetching service (default: false) */
     enabled: true,
     /* Number of displaysets to be prefetched  (default: 2)*/
-    displaySetCount: 2,
+    displaySetsCount: 2,
     /**
      * Max number of concurrent prefetch requests (default: 10)
      * High numbers may impact on the time to load a new dropped series because
@@ -323,7 +324,7 @@ alternative data source (or even specify different default hotkeys).
 | `APP_CONFIG`         | Which [configuration file][config-file] to copy to output as `app-config.js`                       | `config/default.js` |
 | `PROXY_TARGET`       | When developing, proxy requests that match this pattern to `PROXY_DOMAIN`                          | `undefined`         |
 | `PROXY_DOMAIN`       | When developing, proxy requests from `PROXY_TARGET` to `PROXY_DOMAIN`                              | `undefined`         |
-| `OHIF_PORT`      | The port to run the webpack server on for PWA builds. | `3000`        |
+| `OHIF_PORT`          | The port to run the webpack server on for PWA builds.                                              | `3000`              |
 
 You can also create a new config file and specify its path relative to the build
 output's root by setting the `APP_CONFIG` environment variable. You can set the

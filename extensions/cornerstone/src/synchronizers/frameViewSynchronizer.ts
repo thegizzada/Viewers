@@ -1,5 +1,5 @@
-import { SynchronizerManager, Synchronizer, utilities } from '@cornerstonejs/tools';
-import { EVENTS, getRenderingEngine, Types } from '@cornerstonejs/core';
+import { SynchronizerManager, Synchronizer } from '@cornerstonejs/tools';
+import { EVENTS, getRenderingEngine, type Types, utilities } from '@cornerstonejs/core';
 
 const frameViewSyncCallback = (
   synchronizerInstance: Synchronizer,
@@ -42,8 +42,9 @@ const frameViewSyncCallback = (
 const createFrameViewSynchronizer = (synchronizerName: string): Synchronizer => {
   const synchronizer = SynchronizerManager.createSynchronizer(
     synchronizerName,
-    EVENTS.CAMERA_MODIFIED,
-    frameViewSyncCallback
+    EVENTS.STACK_VIEWPORT_SCROLL,
+    frameViewSyncCallback,
+    { auxiliaryEvents: [{ name: EVENTS.CAMERA_MODIFIED, source: 'element' }] }
   );
   return synchronizer;
 };
