@@ -13,7 +13,7 @@ window.config = (() => {
     const studyUID = urlParams.get('studyUID') || urlParams.get('StudyInstanceUIDs');
     const token = urlParams.get('token') || urlParams.get('oauthToken');
 
-    // Base endpoint for our DICOMweb API
+    // Base endpoint for our DICOMweb API  
     const baseUrl = 'https://ec2.jamaker.com';
 
     return {
@@ -23,14 +23,12 @@ window.config = (() => {
             '@ohif/extension-measurement-tracking',
             // Enable cornerstone for DICOM rendering
             '@ohif/extension-cornerstone',
-            // Add custom Elecare extension (to be developed)
-            // '@elecare/extension-patient-integration'
+            // Enable default tools
+            '@ohif/extension-default'
         ],
         modes: [
-            // Basic viewer mode
-            '@ohif/mode-basic-dev-mode',
-            // Measurement tracking mode
-            '@ohif/mode-measurement-tracking'
+            // Basic viewer mode - this is the correct mode name
+            '@ohif/mode-basic-dev-mode'
         ],
         customizationService: {
             // Custom branding for Elecare
