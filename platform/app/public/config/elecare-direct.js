@@ -18,11 +18,8 @@ window.config = (() => {
 
     return {
         routerBasename: '/',
-        extensions: [
-            // Keep the minimal set to avoid unresolved optional modes
-            '@ohif/extension-cornerstone',
-            '@ohif/extension-default'
-        ],
+        // Do not declare extensions here; rely on pluginConfig to avoid duplicates
+        extensions: [],
         modes: [
             // Basic viewer mode - this is the correct mode name
             '@ohif/mode-basic-dev-mode'
