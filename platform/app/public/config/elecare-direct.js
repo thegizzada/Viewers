@@ -19,11 +19,8 @@ window.config = (() => {
     return {
         routerBasename: '/',
         extensions: [
-            // Enable measurement tracking
-            '@ohif/extension-measurement-tracking',
-            // Enable cornerstone for DICOM rendering
+            // Keep the minimal set to avoid unresolved optional modes
             '@ohif/extension-cornerstone',
-            // Enable default tools
             '@ohif/extension-default'
         ],
         modes: [
