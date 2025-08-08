@@ -19,6 +19,13 @@ const cs3d = {
   viewport: '@ohif/extension-cornerstone.viewportModule.cornerstone',
 };
 
+// Measurement Tracking extension modules
+const mt = {
+  seriesListPanel: '@ohif/extension-measurement-tracking.panelModule.seriesList',
+  trackedMeasurementsPanel: '@ohif/extension-measurement-tracking.panelModule.trackedMeasurements',
+  trackedViewport: '@ohif/extension-measurement-tracking.viewportModule.cornerstone-tracked',
+};
+
 const dicomsr = {
   sopClassHandler: '@ohif/extension-cornerstone-dicom-sr.sopClassHandlerModule.dicom-sr',
   viewport: '@ohif/extension-cornerstone-dicom-sr.viewportModule.dicom-sr',
@@ -40,6 +47,8 @@ const extensionDependencies = {
   '@ohif/extension-cornerstone-dicom-sr': '^3.0.0',
   '@ohif/extension-dicom-pdf': '^3.0.1',
   '@ohif/extension-dicom-video': '^3.0.1',
+  // Add measurement tracking extension for tracked annotations & SR workflows
+  '@ohif/extension-measurement-tracking': '^3.0.0',
 };
 
 function modeFactory({ modeConfiguration }) {
@@ -133,14 +142,15 @@ function modeFactory({ modeConfiguration }) {
           return {
             id: ohif.layout,
             props: {
-              // TODO: Should be optional, or required to pass empty array for slots?
-              leftPanels: [ohif.thumbnailList],
+              // Use Measurement Tracking study browser & tracked measurements panels
+              leftPanels: [mt.seriesListPanel],
               leftPanelResizable: true,
-              rightPanels: [ohif.measurements],
+              rightPanels: [mt.trackedMeasurementsPanel],
               rightPanelResizable: true,
               viewports: [
                 {
-                  namespace: cs3d.viewport,
+                  // Use tracked viewport to enable MT overlay/rendering behavior
+                  namespace: mt.trackedViewport,
                   displaySetsToDisplay: [ohif.sopClassHandler],
                 },
                 {

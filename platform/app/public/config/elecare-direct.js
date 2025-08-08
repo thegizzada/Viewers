@@ -47,7 +47,7 @@ window.config = (() => {
             thumbnail: 75,
             prefetch: 25,
         },
-        // Use DICOMweb by default so studies auto-load via StudyInstanceUIDs
+         // Use DICOMweb by default so studies auto-load via StudyInstanceUIDs
         defaultDataSourceName: 'dicomweb',
         dataSources: [
             {
