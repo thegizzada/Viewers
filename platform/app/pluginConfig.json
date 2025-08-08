@@ -69,9 +69,6 @@
   ],
   "modes": [
     {
-      "packageName": "@ohif/mode-basic"
-    },
-    {
       "packageName": "@ohif/mode-longitudinal"
     },
     {
