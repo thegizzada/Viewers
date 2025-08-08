@@ -53,7 +53,8 @@ window.config = (() => {
             thumbnail: 75,
             prefetch: 25,
         },
-        defaultDataSourceName: 'dicomweb',
+        // Prefer local file ingestion by default; DICOMweb remains available for metadata
+        defaultDataSourceName: 'dicomfile',
         dataSources: [
             {
                 namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
@@ -64,7 +65,7 @@ window.config = (() => {
                     // DICOMweb endpoints for our custom server
                     wadoUriRoot: `${baseUrl}/api/dicom/wado`,
                     qidoRoot: `${baseUrl}/api/dicom/qido`,
-                    wadoRoot: `${baseUrl}/api/dicom/wado`,
+                    wadoRsRoot: `${baseUrl}/api/dicom/wado`,
 
                     // Standard DICOMweb capabilities
                     qidoSupportsIncludeField: true,
@@ -77,6 +78,7 @@ window.config = (() => {
 
                     // Authentication for Elecare API
                     requestOptions: {
+                        requestFromBrowser: true,
                         headers: {
                             'Authorization': token ? `Bearer ${token}` : '',
                             'X-File-ID': fileId || '',
@@ -84,6 +86,11 @@ window.config = (() => {
                         },
                     },
                 },
+            },
+            {
+                namespace: '@ohif/extension-default.dataSourcesModule.dicomfile',
+                sourceName: 'dicomfile',
+                configuration: {}
             }
         ]
     };
