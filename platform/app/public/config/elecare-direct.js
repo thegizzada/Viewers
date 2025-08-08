@@ -13,7 +13,7 @@ window.config = (() => {
     const studyUID = urlParams.get('studyUID') || urlParams.get('StudyInstanceUIDs');
     const token = urlParams.get('token') || urlParams.get('oauthToken');
 
-    // Base endpoint for our DICOMweb API  
+    // Base endpoint for our DICOMweb API
     const baseUrl = 'https://ec2.jamaker.com';
 
     return {
