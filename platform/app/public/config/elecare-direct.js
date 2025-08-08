@@ -7,14 +7,14 @@
  * and uses direct S3 access with custom data source
  */
 
-window.config = (() => {
+/** @type {any} */ (window).config = (() => {
     const urlParams = new URLSearchParams(window.location.search);
     const fileId = urlParams.get('fileId');
     const studyUID = urlParams.get('studyUID') || urlParams.get('StudyInstanceUIDs');
     const token = urlParams.get('token') || urlParams.get('oauthToken');
 
-    // Base endpoint for our DICOMweb API
-    const baseUrl = 'https://ec2.jamaker.com';
+    // Base endpoint for our DICOMweb API (same-origin via reverse proxy)
+    const baseDicomweb = 'https://dicom.elecare.ai/dicomweb';
 
     return {
         routerBasename: '/',
@@ -54,14 +54,15 @@ window.config = (() => {
                 namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
                 sourceName: 'dicomweb',
                 configuration: {
-                    friendlyName: 'Elecare Direct S3 DICOM Server',
-                    name: 'Elecare S3',
-                    // DICOMweb endpoints for our custom server
-                    wadoUriRoot: `${baseUrl}/api/dicom/wado`,
-                    qidoRoot: `${baseUrl}/api/dicom/qido`,
-                    wadoRsRoot: `${baseUrl}/api/dicom/wado`,
-                    // Some OHIF paths check wadoRoot specifically
-                    wadoRoot: `${baseUrl}/api/dicom/wado`,
+                    friendlyName: 'Elecare Same-Origin DICOMweb',
+                    name: 'Elecare DICOMweb',
+                    // DICOMweb endpoints proxied under same origin
+                    qidoRoot: `${baseDicomweb}`,
+                    wadoRoot: `${baseDicomweb}`,
+                    wadoRsRoot: `${baseDicomweb}`,
+                    stowRoot: `${baseDicomweb}`,
+                    // Include WADO-URI only if used by your backend
+                    wadoUriRoot: `${baseDicomweb}`,
 
                     // Standard DICOMweb capabilities
                     qidoSupportsIncludeField: true,
@@ -72,7 +73,7 @@ window.config = (() => {
                     supportsFuzzyMatching: false,
                     supportsWildcard: false,
 
-                    // Authentication for Elecare API
+                    // Authentication for Elecare API (passed through proxy if present)
                     requestOptions: {
                         requestFromBrowser: true,
                         headers: {
