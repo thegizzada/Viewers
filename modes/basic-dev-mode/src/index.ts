@@ -52,6 +52,7 @@ const extensionDependencies = {
 };
 
 function modeFactory({ modeConfiguration }) {
+  console.log('[OHIF][MODE-BASIC] modeFactory invoked. modeConfiguration keys:', Object.keys(modeConfiguration || {}));
   return {
     id,
     routeName: 'dev',
@@ -60,6 +61,7 @@ function modeFactory({ modeConfiguration }) {
      * Lifecycle hooks
      */
     onModeEnter: ({ servicesManager, extensionManager }: withAppTypes) => {
+      console.log('[OHIF][MODE-BASIC] onModeEnter start');
       const { toolbarService, toolGroupService } = servicesManager.services;
       const utilityModule = extensionManager.getModuleEntry(
         '@ohif/extension-cornerstone.utilityModule.tools'
@@ -102,6 +104,7 @@ function modeFactory({ modeConfiguration }) {
       };
 
       toolGroupService.createToolGroupAndAddTools('default', tools);
+      console.log('[OHIF][MODE-BASIC] toolGroup created with tools', tools);
 
       toolbarService.register(toolbarButtons);
       toolbarService.updateSection('primary', [
@@ -112,12 +115,15 @@ function modeFactory({ modeConfiguration }) {
         'Layout',
         'MoreTools',
       ]);
+      console.log('[OHIF][MODE-BASIC] toolbar registered and updated');
     },
     onModeExit: ({ servicesManager }: withAppTypes) => {
+      console.log('[OHIF][MODE-BASIC] onModeExit start');
       const { toolGroupService, uiDialogService, uiModalService } = servicesManager.services;
       uiDialogService.hideAll();
       uiModalService.hide();
       toolGroupService.destroy();
+      console.log('[OHIF][MODE-BASIC] onModeExit cleanup done');
     },
     validationTags: {
       study: [],
@@ -139,6 +145,7 @@ function modeFactory({ modeConfiguration }) {
           //defaultViewerRouteInit
         },*/
         layoutTemplate: ({ location, servicesManager }) => {
+          console.log('[OHIF][MODE-BASIC] layoutTemplate invoked. location:', location?.pathname);
           return {
             id: ohif.layout,
             props: {

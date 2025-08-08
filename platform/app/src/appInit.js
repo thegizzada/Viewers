@@ -31,6 +31,9 @@ import loadModules, { loadModule as peerImport } from './pluginImports';
  * @param {object[]} defaultExtensions - array of extension objects
  */
 async function appInit(appConfigOrFunc, defaultExtensions, defaultModes) {
+  console.log('[OHIF][INIT] appInit called');
+  console.log('[OHIF][INIT] defaultExtensions:', Array.isArray(defaultExtensions) ? defaultExtensions.map(e => e?.id || e) : defaultExtensions);
+  console.log('[OHIF][INIT] defaultModes:', Array.isArray(defaultModes) ? defaultModes.map(m => m?.id || m) : defaultModes);
   const commandsManagerConfig = {
     getAppState: () => {},
   };
@@ -45,9 +48,13 @@ async function appInit(appConfigOrFunc, defaultExtensions, defaultModes) {
       ? await appConfigOrFunc({ servicesManager, peerImport })
       : appConfigOrFunc),
   };
+  console.log('[OHIF][INIT] appConfig loaded. keys:', Object.keys(appConfig || {}));
+  console.log('[OHIF][INIT] appConfig.extensions:', Array.isArray(appConfig.extensions) ? appConfig.extensions.map(e => e?.id || e) : appConfig.extensions);
+  console.log('[OHIF][INIT] appConfig.modes:', Array.isArray(appConfig.modes) ? appConfig.modes.map(m => m?.id || m) : appConfig.modes);
   // Default the peer import function
   appConfig.peerImport ||= peerImport;
   appConfig.measurementTrackingMode ||= 'standard';
+  console.log('[OHIF][INIT] measurementTrackingMode:', appConfig.measurementTrackingMode);
 
   const extensionManager = new ExtensionManager({
     commandsManager,
@@ -56,8 +63,10 @@ async function appInit(appConfigOrFunc, defaultExtensions, defaultModes) {
     hotkeysManager,
     appConfig,
   });
+  console.log('[OHIF][INIT] ExtensionManager created');
 
   servicesManager.setExtensionManager(extensionManager);
+  console.log('[OHIF][INIT] Services registered (pre)');
 
   servicesManager.registerServices([
     [MultiMonitorService.REGISTRATION, appConfig.multimonitor],
@@ -77,6 +86,7 @@ async function appInit(appConfigOrFunc, defaultExtensions, defaultModes) {
     WorkflowStepsService.REGISTRATION,
     [StudyPrefetcherService.REGISTRATION, appConfig.studyPrefetcher],
   ]);
+  console.log('[OHIF][INIT] Services registered (post)');
 
   errorHandler.getHTTPErrorHandler = () => {
     if (typeof appConfig.httpErrorHandler === 'function') {
@@ -89,7 +99,9 @@ async function appInit(appConfigOrFunc, defaultExtensions, defaultModes) {
    * Example2: [[ext1, config], ext2, [ext3, config]]
    */
   const loadedExtensions = await loadModules([...defaultExtensions, ...appConfig.extensions]);
+  console.log('[OHIF][INIT] loadedExtensions:', loadedExtensions.map(e => e?.id));
   await extensionManager.registerExtensions(loadedExtensions, appConfig.dataSources);
+  console.log('[OHIF][INIT] registerExtensions complete');
 
   // TODO: We no longer use `utils.addServer`
   // TODO: We no longer init webWorkers at app level
@@ -100,6 +112,7 @@ async function appInit(appConfigOrFunc, defaultExtensions, defaultModes) {
   }
 
   const loadedModes = await loadModules([...(appConfig.modes || []), ...defaultModes]);
+  console.log('[OHIF][INIT] loadedModes (raw):', loadedModes.map(m => m?.id || (m && m.modeFactory ? 'factory' : 'unknown')));
 
   // This is the name for the loaded instance object
   appConfig.loadedModes = [];
@@ -110,6 +123,7 @@ async function appInit(appConfigOrFunc, defaultExtensions, defaultModes) {
       continue;
     }
     const { id } = mode;
+    console.log('[OHIF][INIT] processing mode:', id);
 
     if (mode.modeFactory) {
       // If the appConfig contains configuration for this mode, use it.
@@ -119,6 +133,7 @@ async function appInit(appConfigOrFunc, defaultExtensions, defaultModes) {
           : {};
 
       mode = await mode.modeFactory({ modeConfiguration, loadModules });
+      console.log('[OHIF][INIT] modeFactory resolved for id:', id, 'resolved.id:', mode?.id);
     }
 
     if (modesById.has(id)) {
@@ -131,9 +146,11 @@ async function appInit(appConfigOrFunc, defaultExtensions, defaultModes) {
     }
     appConfig.loadedModes.push(mode);
   }
+  console.log('[OHIF][INIT] appConfig.loadedModes:', appConfig.loadedModes.map(m => m?.id));
   // Hack alert - don't touch the original modes definition,
   // but there are still dependencies on having the appConfig modes defined
   appConfig.modes = appConfig.loadedModes;
+  console.log('[OHIF][INIT] appConfig.modes set (final):', appConfig.modes.map(m => m?.id));
 
   return {
     appConfig,

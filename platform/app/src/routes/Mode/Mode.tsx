@@ -21,15 +21,17 @@ export default function ModeRoute({
   commandsManager,
   hotkeysManager,
 }: withAppTypes) {
+  console.log('[OHIF][MODE] ModeRoute mount. mode.id:', mode?.id, 'dataSourceName:', dataSourceName);
   const [appConfig] = useAppConfig();
 
   // Parse route params/querystring
   const location = useLocation();
 
   // The react router DOM placeholder map (see https://reactrouter.com/en/main/hooks/use-params).
-  const params = useParams(); 
+  const params = useParams();
   // The URL's query search parameters where the keys casing is maintained
-  const query = useSearchParams(); 
+  const query = useSearchParams();
+  console.log('[OHIF][MODE] URL params:', params, 'query:', Object.fromEntries(query.entries()))
 
   mode?.onModeInit?.({
     servicesManager,
@@ -38,6 +40,7 @@ export default function ModeRoute({
     appConfig,
     query,
   });
+  console.log('[OHIF][MODE] onModeInit invoked for mode:', mode?.id);
 
   // The URL's query search parameters where the keys are all lower case.
   const lowerCaseSearchParams = useSearchParams({ lowerCaseKeys: true });
@@ -71,12 +74,14 @@ export default function ModeRoute({
   const token = lowerCaseSearchParams.get('token');
 
   if (token) {
+    console.log('[OHIF][MODE] token detected, updating auth service');
     updateAuthServiceAndCleanUrl(token, location, userAuthenticationService);
   }
 
   // An undefined dataSourceName implies that the active data source that is already set in the ExtensionManager should be used.
   if (dataSourceName !== undefined) {
     extensionManager.setActiveDataSource(dataSourceName);
+    console.log('[OHIF][MODE] Active data source set to:', dataSourceName);
   }
 
   const dataSource = extensionManager.getActiveDataSourceOrNull();
@@ -86,16 +91,20 @@ export default function ModeRoute({
 
   useEffect(() => {
     const loadExtensions = async () => {
+      console.log('[OHIF][MODE] Loading extension dependencies for mode:', mode?.id);
       const loadedExtensions = await loadModules(Object.keys(extensions));
+      console.log('[OHIF][MODE] loadedExtensions for route:', loadedExtensions.map(e => e?.id));
       for (const extension of loadedExtensions) {
         const { id: extensionId } = extension;
         if (extensionManager.registeredExtensionIds.indexOf(extensionId) === -1) {
           await extensionManager.registerExtension(extension);
+          console.log('[OHIF][MODE] registered extension:', extensionId);
         }
       }
 
       if (isMounted.current) {
         setExtensionDependenciesLoaded(true);
+        console.log('[OHIF][MODE] Extension dependencies loaded');
       }
     };
 
@@ -117,11 +126,14 @@ export default function ModeRoute({
 
     // Todo: this should not be here, data source should not care about params
     const initializeDataSource = async (params, query) => {
+      console.log('[OHIF][MODE] initializeDataSource/start', { params, query: Object.fromEntries(query.entries()) });
       await dataSource.initialize({
         params,
         query,
       });
-      setStudyInstanceUIDs(dataSource.getStudyInstanceUIDs({ params, query }));
+      const uids = dataSource.getStudyInstanceUIDs({ params, query });
+      console.log('[OHIF][MODE] initializeDataSource/done StudyInstanceUIDs:', uids);
+      setStudyInstanceUIDs(uids);
     };
 
     initializeDataSource(params, query);
@@ -136,11 +148,13 @@ export default function ModeRoute({
     }
 
     const retrieveLayoutData = async () => {
+      console.log('[OHIF][MODE] retrieveLayoutData/start studyInstanceUIDs:', studyInstanceUIDs);
       const layoutData = await route.layoutTemplate({
         location,
         servicesManager,
         studyInstanceUIDs,
       });
+      console.log('[OHIF][MODE] retrieveLayoutData/done layoutId:', layoutData?.id, 'props keys:', Object.keys(layoutData?.props || {}));
 
       if (isMounted.current) {
         const { leftPanels = [], rightPanels = [], ...layoutProps } = layoutData.props;
@@ -148,12 +162,14 @@ export default function ModeRoute({
         panelService.reset();
         panelService.addPanels(panelService.PanelPosition.Left, leftPanels);
         panelService.addPanels(panelService.PanelPosition.Right, rightPanels);
+        console.log('[OHIF][MODE] Panels set. left:', leftPanels, 'right:', rightPanels);
 
         // layoutProps contains all props but leftPanels and rightPanels
         layoutData.props = layoutProps;
 
         layoutTemplateData.current = layoutData;
         setRefresh(!refresh);
+        console.log('[OHIF][MODE] Layout template data applied and refresh toggled');
       }
     };
     if (Array.isArray(studyInstanceUIDs) && studyInstanceUIDs[0]) {
@@ -170,6 +186,7 @@ export default function ModeRoute({
     }
 
     const setupRouteInit = async () => {
+      console.log('[OHIF][MODE] setupRouteInit/start');
       // TODO: For some reason this is running before the Providers
       // are calling setServiceImplementation
       // TODO -> iterate through services.
@@ -178,6 +195,7 @@ export default function ModeRoute({
 
       // Add SOPClassHandlers to a new SOPClassManager.
       displaySetService.init(extensionManager, sopClassHandlers);
+      console.log('[OHIF][MODE] displaySetService.init complete');
 
       extensionManager.onModeEnter({
         servicesManager,
@@ -185,6 +203,7 @@ export default function ModeRoute({
         commandsManager,
         appConfig,
       });
+      console.log('[OHIF][MODE] extensionManager.onModeEnter complete');
 
       // use the URL hangingProtocolId if it exists, otherwise use the one
       // defined in the mode configuration
@@ -193,6 +212,7 @@ export default function ModeRoute({
       )
         ? runTimeHangingProtocolId
         : hangingProtocol;
+      console.log('[OHIF][MODE] hangingProtocolIdToUse:', hangingProtocolIdToUse);
 
       // Determine the index of the stageId if the hangingProtocolIdToUse is defined
       const stageIndex = Array.isArray(hangingProtocolIdToUse)
@@ -203,11 +223,13 @@ export default function ModeRoute({
       // Ensure that the stage index is never negative
       // If stageIndex is negative (e.g., if stage wasn't found), use 0 as the default
       const stageIndexToUse = Math.max(0, stageIndex);
+      console.log('[OHIF][MODE] stageIndexToUse:', stageIndexToUse);
 
       // Sets the active hanging protocols - if hangingProtocol is undefined,
       // resets to default.  Done before the onModeEnter to allow the onModeEnter
       // to perform custom hanging protocol actions
       hangingProtocolService.setActiveProtocolIds(hangingProtocolIdToUse);
+      console.log('[OHIF][MODE] setActiveProtocolIds complete');
 
       mode?.onModeEnter({
         servicesManager,
@@ -215,10 +237,12 @@ export default function ModeRoute({
         commandsManager,
         appConfig,
       });
+      console.log('[OHIF][MODE] mode.onModeEnter complete for:', mode?.id);
 
       // Move hotkeys setup here, after onModeEnter
       const hotkeys = customizationService.getCustomization('ohif.hotkeyBindings');
       hotkeysManager.setDefaultHotKeys(hotkeys);
+      console.log('[OHIF][MODE] Hotkeys set');
 
       /**
        * The next line should get all the query parameters provided by the URL
@@ -244,6 +268,7 @@ export default function ModeRoute({
           }
           return { ...acc, [val]: getSplitParam(lowerVal, query) };
         }, {}) ?? {};
+      console.log('[OHIF][MODE] Computed filters:', filters);
 
       let unsubs;
 
@@ -260,6 +285,7 @@ export default function ModeRoute({
           hangingProtocolIdToUse,
           stageIndexToUse
         );
+        console.log('[OHIF][MODE] route.init complete');
       }
 
       return defaultRouteInit(
@@ -278,6 +304,7 @@ export default function ModeRoute({
     let unsubscriptions;
     setupRouteInit().then(unsubs => {
       unsubscriptions = unsubs;
+      console.log('[OHIF][MODE] setupRouteInit complete; unsubs count:', Array.isArray(unsubs) ? unsubs.length : 0);
 
       mode?.onSetupRouteComplete?.({
         servicesManager,
@@ -296,11 +323,13 @@ export default function ModeRoute({
           extensionManager,
           appConfig,
         });
+        console.log('[OHIF][MODE] mode.onModeExit complete for:', mode?.id);
       } catch (e) {
         console.warn('mode exit failure', e);
       }
       // Clean up hotkeys
       hotkeysManager.destroy();
+      console.log('[OHIF][MODE] hotkeysManager destroyed');
 
       // The unsubscriptions must occur before the extension onModeExit
       // in order to prevent exceptions during cleanup caused by spurious events
@@ -308,10 +337,12 @@ export default function ModeRoute({
         unsubscriptions.forEach(unsub => {
           unsub();
         });
+        console.log('[OHIF][MODE] route unsubscriptions executed');
       }
       // The extension manager must be called after the mode, this is
       // expected to cleanup the state to a standard setup.
       extensionManager.onModeExit();
+      console.log('[OHIF][MODE] extensionManager.onModeExit complete');
     };
   }, [
     mode,
@@ -327,6 +358,11 @@ export default function ModeRoute({
   ]);
 
   if (!studyInstanceUIDs || !layoutTemplateData.current || !ExtensionDependenciesLoaded) {
+    console.log('[OHIF][MODE] Waiting for prerequisites', {
+      hasUIDs: !!studyInstanceUIDs,
+      hasLayout: !!layoutTemplateData.current,
+      deps: ExtensionDependenciesLoaded,
+    });
     return null;
   }
 
