@@ -66,6 +66,8 @@ window.config = (() => {
                     wadoUriRoot: `${baseUrl}/api/dicom/wado`,
                     qidoRoot: `${baseUrl}/api/dicom/qido`,
                     wadoRsRoot: `${baseUrl}/api/dicom/wado`,
+                    // Some OHIF paths check wadoRoot specifically
+                    wadoRoot: `${baseUrl}/api/dicom/wado`,
 
                     // Standard DICOMweb capabilities
                     qidoSupportsIncludeField: true,
@@ -84,6 +86,12 @@ window.config = (() => {
                             'X-File-ID': fileId || '',
                             'X-Study-UID': studyUID || ''
                         },
+                    },
+                    // Also include top-level headers for clients that read from configuration.headers
+                    headers: {
+                        'Authorization': token ? `Bearer ${token}` : '',
+                        'X-File-ID': fileId || '',
+                        'X-Study-UID': studyUID || ''
                     },
                 },
             },
