@@ -62,12 +62,12 @@
                 configuration: {
                     friendlyName: 'Elecare Same-Origin DICOMweb',
                     name: 'Elecare DICOMweb',
-                    // DICOMweb endpoints proxied under same origin with authentication
-                    qidoRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
-                    wadoRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
-                    wadoRsRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
-                    stowRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
-                    wadoUriRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
+                    // DICOMweb endpoints with custom headers as URL parameters (OHIF limitation)
+                    qidoRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
+                    wadoRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
+                    wadoRsRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
+                    stowRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
+                    wadoUriRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
 
                     // Standard DICOMweb capabilities
                     qidoSupportsIncludeField: true,
@@ -78,20 +78,13 @@
                     supportsFuzzyMatching: false,
                     supportsWildcard: false,
 
-                    // Authentication for Elecare API (passed through proxy if present)
+                    // OHIF Gold Standard Authentication Pattern
                     requestOptions: {
                         requestFromBrowser: true,
-                        headers: {
-                            'Authorization': token ? `Bearer ${token}` : '',
-                            'X-File-ID': fileId || '',
-                            'X-Study-UID': studyUID || ''
+                        auth: function(requestOptions) {
+                            // Custom authentication function - OHIF will call this for every request
+                            return token ? `Bearer ${token}` : '';
                         },
-                    },
-                    // Also include top-level headers for clients that read from configuration.headers
-                    headers: {
-                        'Authorization': token ? `Bearer ${token}` : '',
-                        'X-File-ID': fileId || '',
-                        'X-Study-UID': studyUID || ''
                     },
                 },
             },
