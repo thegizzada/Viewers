@@ -62,12 +62,12 @@
                 configuration: {
                     friendlyName: 'Elecare Same-Origin DICOMweb',
                     name: 'Elecare DICOMweb',
-                    // DICOMweb endpoints with custom headers as URL parameters (OHIF limitation)
-                    qidoRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
-                    wadoRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
-                    wadoRsRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
-                    stowRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
-                    wadoUriRoot: `${baseDicomweb}?fileId=${encodeURIComponent(fileId || '')}&studyUID=${encodeURIComponent(studyUID || '')}`,
+                    // DICOMweb endpoints proxied under same origin
+                    qidoRoot: baseDicomweb,
+                    wadoRoot: baseDicomweb,
+                    wadoRsRoot: baseDicomweb,
+                    stowRoot: baseDicomweb,
+                    wadoUriRoot: baseDicomweb,
 
                     // Standard DICOMweb capabilities
                     qidoSupportsIncludeField: true,
@@ -78,13 +78,23 @@
                     supportsFuzzyMatching: false,
                     supportsWildcard: false,
 
-                    // OHIF Gold Standard Authentication Pattern
+                    // OHIF Documented Authentication Pattern (from their elecare.js example)
                     requestOptions: {
                         requestFromBrowser: true,
-                        auth: function(requestOptions) {
-                            // Custom authentication function - OHIF will call this for every request
+                        auth: function() {
                             return token ? `Bearer ${token}` : '';
                         },
+                        headers: {
+                            'Authorization': token ? `Bearer ${token}` : '',
+                            'X-File-ID': fileId || '',
+                            'X-Study-UID': studyUID || ''
+                        },
+                    },
+                    // Also include top-level headers (OHIF documented pattern)
+                    headers: {
+                        'Authorization': token ? `Bearer ${token}` : '',
+                        'X-File-ID': fileId || '',
+                        'X-Study-UID': studyUID || ''
                     },
                 },
             },
