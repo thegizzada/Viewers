@@ -62,12 +62,12 @@
                 configuration: {
                     friendlyName: 'Elecare Same-Origin DICOMweb',
                     name: 'Elecare DICOMweb',
-                    // DICOMweb endpoints proxied under same origin
-                    qidoRoot: baseDicomweb,
-                    wadoRoot: baseDicomweb,
-                    wadoRsRoot: baseDicomweb,
-                    stowRoot: baseDicomweb,
-                    wadoUriRoot: baseDicomweb,
+                    // DICOMweb endpoints proxied under same origin with authentication
+                    qidoRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
+                    wadoRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
+                    wadoRsRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
+                    stowRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
+                    wadoUriRoot: `${baseDicomweb}?token=${encodeURIComponent(token || '')}&fileId=${encodeURIComponent(fileId || '')}`,
 
                     // Standard DICOMweb capabilities
                     qidoSupportsIncludeField: true,
