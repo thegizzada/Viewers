@@ -1,10 +1,10 @@
 /** @type {AppTypes.Config} */
 
 /**
- * ELECARE DIRECT S3 CONFIGURATION
+ * ELECARE UNIVERSAL DICOM CONFIGURATION
  *
- * This configuration eliminates Google Healthcare dependency
- * and uses direct S3 access with custom data source
+ * This configuration works with any OHIF mode and ensures
+ * the dicomweb data source is properly configured
  */
 
 /** @type {any} */ (window).config = (() => {
@@ -13,16 +13,22 @@
     const studyUID = urlParams.get('studyUID') || urlParams.get('StudyInstanceUIDs');
     const token = urlParams.get('token') || urlParams.get('oauthToken');
 
+    console.log('🔧 OHIF Config Loading - Parameters:', { fileId, studyUID, hasToken: !!token });
+
     // Base endpoint for our DICOMweb API (same-origin via reverse proxy)
     const baseDicomweb = 'https://dicom.elecare.ai/dicomweb';
 
-    return {
+    const config = {
         routerBasename: '/',
-        // Do not declare extensions here; rely on pluginConfig to avoid duplicates
-        extensions: [],
+        // Include extensions to ensure they're available
+        extensions: [
+            '@ohif/extension-default',
+            '@ohif/extension-cornerstone'
+        ],
+        // Include all modes to ensure they're available
         modes: [
-            // Basic viewer mode - this is the correct mode name
-            '@ohif/mode-basic-dev-mode'
+            '@ohif/mode-basic-dev-mode',
+            '@ohif/mode-longitudinal'
         ],
         customizationService: {
             // Custom branding for Elecare
@@ -47,7 +53,7 @@
             thumbnail: 75,
             prefetch: 25,
         },
-         // Use DICOMweb by default so studies auto-load via StudyInstanceUIDs
+        // Use DICOMweb by default so studies auto-load via StudyInstanceUIDs
         defaultDataSourceName: 'dicomweb',
         dataSources: [
             {
@@ -57,12 +63,11 @@
                     friendlyName: 'Elecare Same-Origin DICOMweb',
                     name: 'Elecare DICOMweb',
                     // DICOMweb endpoints proxied under same origin
-                    qidoRoot: `${baseDicomweb}`,
-                    wadoRoot: `${baseDicomweb}`,
-                    wadoRsRoot: `${baseDicomweb}`,
-                    stowRoot: `${baseDicomweb}`,
-                    // Include WADO-URI only if used by your backend
-                    wadoUriRoot: `${baseDicomweb}`,
+                    qidoRoot: baseDicomweb,
+                    wadoRoot: baseDicomweb,
+                    wadoRsRoot: baseDicomweb,
+                    stowRoot: baseDicomweb,
+                    wadoUriRoot: baseDicomweb,
 
                     // Standard DICOMweb capabilities
                     qidoSupportsIncludeField: true,
@@ -97,4 +102,7 @@
             }
         ]
     };
+
+    console.log('✅ OHIF Config Constructed - Base URL:', baseDicomweb, 'Data Sources:', config.dataSources.length);
+    return config;
 })();
