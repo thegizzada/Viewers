@@ -81,6 +81,10 @@
                     // Authentication for Elecare API (passed through proxy if present)
                     requestOptions: {
                         requestFromBrowser: true,
+                        // Ensure the very first QIDO includes Authorization
+                        auth: function() {
+                            return token ? `Bearer ${token}` : '';
+                        },
                         headers: {
                             'Authorization': token ? `Bearer ${token}` : '',
                             'X-File-ID': fileId || '',
