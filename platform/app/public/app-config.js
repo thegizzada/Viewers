@@ -40,7 +40,8 @@
                 backgroundColor: '#f8f9fa'
             }
         },
-        showStudyList: true,
+        // Avoid unauthenticated WorkList call; load directly by StudyInstanceUIDs
+        showStudyList: false,
         maxNumberOfWebWorkers: 3,
         showWarningMessageForCrossOrigin: false,
         showCPUFallbackMessage: true,
